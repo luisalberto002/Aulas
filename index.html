@@ -1,21 +1,45 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Arquivos da turma</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
-<main>
-  <h1 id="titulo">Arquivos da turma</h1>
-  <p class="sub" id="subtitulo">Baixe aqui os materiais de cada aula.</p>
-  <div id="lista"><p class="vazio">Nenhum arquivo publicado ainda.</p></div>
-</main>
 
-<script src="script.js"></script>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Arquivos da turma</title>
+
+  <meta name="description" content="Acesse e baixe os materiais disponibilizados para a turma.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&display=swap"
+    rel="stylesheet">
+
+  <link rel="stylesheet" href="./style.css">
+
+  <script src="./script.js" defer></script>
+</head>
+
+<body>
+  <main class="container">
+    <header class="cabecalho">
+      <div class="marca">MATERIAIS DIDÁTICOS</div>
+
+      <h1 id="titulo">Arquivos da turma</h1>
+
+      <p id="subtitulo">
+        Baixe aqui os materiais de cada aula.
+      </p>
+    </header>
+
+    <div id="lista" aria-live="polite">
+      <p class="vazio">Carregando materiais...</p>
+    </div>
+
+    <footer>
+      <p>Materiais disponibilizados para fins educacionais.</p>
+    </footer>
+  </main>
 </body>
+
 </html>

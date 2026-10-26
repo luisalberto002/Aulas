@@ -1,7 +1,6 @@
-/* ============ EDITE APENAS ESTA PARTE ============
-   Cada aula tem um título, uma data e uma lista de arquivos.
-   "arquivo" é o caminho dentro da pasta "arquivos/" do repositório.
-   Coloque a aula mais recente no topo. */
+
+/* ============ EDITE APENAS ESTA PARTE ============ */
+
 const TITULO = "Arquivos da turma";
 const SUBTITULO = "Baixe aqui os materiais de cada aula.";
 
@@ -10,56 +9,129 @@ const AULAS = [
     titulo: "Material",
     data: "18/10/2026",
     arquivos: [
-  { nome: "Guia de Prompts da Persona ao Protótipo", arquivo: "guia-prompts.docx" },
-  { nome: "Trabalho sobre o filme 'O jogo da Imitação'", arquivo: "trabalho-jogo-da-imitacao.pdf" }
-]
+      {
+        nome: "Guia de Prompts da Persona ao Protótipo",
+        arquivo: "guia-prompts.docx"
+      },
+      {
+        nome: "Trabalho sobre o filme 'O jogo da Imitação'",
+        arquivo: "trabalho-jogo-da-imitacao.pdf"
+      }
+    ]
   }
 ];
+
 /* ============ FIM DA PARTE EDITÁVEL ============ */
 
-document.getElementById("titulo").textContent = TITULO;
-document.getElementById("subtitulo").textContent = SUBTITULO;
-document.title = TITULO;
+document.addEventListener("DOMContentLoaded", function () {
+  const elementoTitulo = document.getElementById("titulo");
+  const elementoSubtitulo = document.getElementById("subtitulo");
+  const lista = document.getElementById("lista");
 
-const lista = document.getElementById("lista");
-if (AULAS.length) {
-  lista.textContent = "";
+  elementoTitulo.textContent = TITULO;
+  elementoSubtitulo.textContent = SUBTITULO;
+  document.title = TITULO;
+
+  /*
+   * A URL base respeita o caminho do projeto no GitHub Pages.
+   * Exemplo:
+   * https://usuario.github.io/turma/
+   * arquivos serão procurados em /turma/arquivos/
+   */
+  const caminhoBase = new URL("./", window.location.href);
+  const pastaArquivos = new URL("arquivos/", caminhoBase);
+
+  function mostrarMensagem(mensagem, classe) {
+    const p = document.createElement("p");
+    p.className = classe;
+    p.textContent = mensagem;
+    lista.replaceChildren(p);
+  }
+
+  function criarLinkDownload(arquivo) {
+    const link = document.createElement("a");
+
+    link.className = "baixar";
+    link.href = new URL(arquivo.arquivo, pastaArquivos).href;
+    link.textContent = "Baixar";
+    link.setAttribute("aria-label", "Baixar " + arquivo.nome);
+
+    /*
+     * O atributo download funciona principalmente para arquivos
+     * da mesma origem. O servidor ainda precisa disponibilizar
+     * o arquivo no endereço indicado.
+     */
+    link.download = arquivo.arquivo;
+
+    return link;
+  }
+
+  if (!Array.isArray(AULAS) || AULAS.length === 0) {
+    mostrarMensagem("Nenhum arquivo publicado ainda.", "vazio");
+    return;
+  }
+
+  lista.replaceChildren();
+
   AULAS.forEach(function (aula) {
-    const sec = document.createElement("section");
-    const h2 = document.createElement("h2");
-    h2.textContent = aula.titulo;
-    sec.appendChild(h2);
+    const secao = document.createElement("section");
+
+    const titulo = document.createElement("h2");
+    titulo.textContent = aula.titulo || "Materiais";
+    secao.appendChild(titulo);
+
     if (aula.data) {
-      const d = document.createElement("p");
-      d.className = "data";
-      d.textContent = aula.data;
-      sec.appendChild(d);
+      const data = document.createElement("p");
+      data.className = "data";
+      data.textContent = aula.data;
+      secao.appendChild(data);
     }
+
     const ul = document.createElement("ul");
-    aula.arquivos.forEach(function (f) {
-      const li = document.createElement("li");
-      const info = document.createElement("div");
-      const n = document.createElement("div");
-      n.className = "nome";
-      n.textContent = f.nome;
-      info.appendChild(n);
-      if (f.descricao) {
-        const ds = document.createElement("div");
-        ds.className = "desc";
-        ds.textContent = f.descricao;
-        info.appendChild(ds);
+    const arquivos = Array.isArray(aula.arquivos)
+      ? aula.arquivos
+      : [];
+
+    if (arquivos.length === 0) {
+      const item = document.createElement("li");
+      item.textContent = "Nenhum arquivo cadastrado nesta aula.";
+      ul.appendChild(item);
+    }
+
+    arquivos.forEach(function (arquivo) {
+      const item = document.createElement("li");
+      const informacoes = document.createElement("div");
+
+      const nome = document.createElement("div");
+      nome.className = "nome";
+      nome.textContent = arquivo.nome || arquivo.arquivo || "Arquivo";
+      informacoes.appendChild(nome);
+
+      if (arquivo.descricao) {
+        const descricao = document.createElement("div");
+        descricao.className = "desc";
+        descricao.textContent = arquivo.descricao;
+        informacoes.appendChild(descricao);
       }
-      const a = document.createElement("a");
-      a.className = "baixar";
-      a.href = "arquivos/" + f.arquivo;
-      a.setAttribute("download", "");
-      a.textContent = "Baixar";
-      a.setAttribute("aria-label", "Baixar " + f.nome);
-      li.appendChild(info);
-      li.appendChild(a);
-      ul.appendChild(li);
+
+      item.appendChild(informacoes);
+
+      if (
+        typeof arquivo.arquivo === "string" &&
+        arquivo.arquivo.trim() !== ""
+      ) {
+        item.appendChild(criarLinkDownload(arquivo));
+      } else {
+        const aviso = document.createElement("span");
+        aviso.className = "desc";
+        aviso.textContent = "Caminho do arquivo não informado.";
+        item.appendChild(aviso);
+      }
+
+      ul.appendChild(item);
     });
-    sec.appendChild(ul);
-    lista.appendChild(sec);
+
+    secao.appendChild(ul);
+    lista.appendChild(secao);
   });
-}
+});
