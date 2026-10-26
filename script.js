@@ -10,8 +10,8 @@ const AULAS = [
     titulo: "Material",
     data: "18/10/2026",
     arquivos: [
-      { nome: "Guia de Prompts da Persona ao Protótipo", arquivo: "Arquivos/Guia de Prompts da Persona ao Protótipo.docx" },
-      {nome: "Trabalho sobre o filme 'O jogo da Imitação'", arquivo: "Arquivos/Trabalho avaliativo - O Jogo da Imitação.pdf"}
+      { nome: "Guia de Prompts da Persona ao Protótipo", arquivo: "Guia de Prompts da Persona ao Protótipo.docx" },
+      {nome: "Trabalho sobre o filme 'O jogo da Imitação'", arquivo: "Trabalho avaliativo - O Jogo da Imitação.pdf"}
     ]
   }
 ];
@@ -51,7 +51,7 @@ if (AULAS.length) {
       }
       const a = document.createElement("a");
       a.className = "baixar";
-      a.href = "arquivos/" + f.arquivo;
+      a.href = "Arquivos/" + f.arquivo;
       a.setAttribute("download", "");
       a.textContent = "Baixar";
       a.setAttribute("aria-label", "Baixar " + f.nome);
