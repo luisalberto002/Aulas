@@ -7,7 +7,7 @@ const SUBTITULO = "Baixe aqui os materiais de cada aula.";
 
 const AULAS = [
   {
-    titulo: "Arquivos",
+    titulo: "Material",
     data: "18/10/2026",
     arquivos: [
       { nome: "Guia de Prompts da Persona ao Protótipo", arquivo: "Arquivos/Guia de Prompts da Persona ao Protótipo.docx" },
