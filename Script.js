@@ -10,7 +10,7 @@ const AULAS = [
     titulo: "Arquivos",
     data: "18/10/2026",
     arquivos: [
-      { nome: "Roteiro da aula", arquivo: "Arquivos/Guia de Prompts da Persona ao Protótipo.docx" }
+      { nome: "Guia de Prompts da Persona ao Protótipo", arquivo: "Arquivos/Guia de Prompts da Persona ao Protótipo.docx" }
     ]
   }
 ];
