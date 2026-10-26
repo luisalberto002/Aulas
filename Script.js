@@ -10,7 +10,8 @@ const AULAS = [
     titulo: "Arquivos",
     data: "18/10/2026",
     arquivos: [
-      { nome: "Guia de Prompts da Persona ao Protótipo", arquivo: "Arquivos/Guia de Prompts da Persona ao Protótipo.docx" }
+      { nome: "Guia de Prompts da Persona ao Protótipo", arquivo: "Arquivos/Guia de Prompts da Persona ao Protótipo.docx" },
+      {nome: "Trabalho sobre o filme 'O jogo da Imitação'", arquivo: "Arquivos/Trabalho avaliativo - O Jogo da Imitação.pdf"}
     ]
   }
 ];
