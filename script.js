@@ -6,16 +6,30 @@ const SUBTITULO = "Baixe aqui os materiais de cada aula.";
 
 const AULAS = [
   {
-    titulo: "Material",
-    data: "18/10/2026",
+    titulo: "1º TDS",
+    data: "27/10/2026",
     arquivos: [
       {
         nome: "Guia de Prompts da Persona ao Protótipo",
         arquivo: "guia-prompts.docx"
       },
       {
+        nome: "Guia de Prompts Apresentação, Pitch e Entrega Final",
+        arquivo: "guia-final.docx" 
+      },
+      {
         nome: "Trabalho sobre o filme 'O jogo da Imitação'",
         arquivo: "trabalho-jogo-da-imitacao.pdf"
+      }
+    ]
+  },
+  {
+    titulo: "Inteligência Artificial",
+    data: "27/10/2026",
+    arquivos: [
+      {
+        nome: "Trabalho sobre o filme 'O jogo da Imitação",
+        arquivo: "trabalho-ai-inteligencia-artificial.pdf"
       }
     ]
   }
