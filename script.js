@@ -28,7 +28,7 @@ const AULAS = [
     data: "27/10/2026",
     arquivos: [
       {
-        nome: "Trabalho sobre o filme 'O jogo da Imitação",
+        nome: "Trabalho sobre o filme 'AI - Inteligência Artificial'",
         arquivo: "trabalho-ai-inteligencia-artificial.pdf"
       }
     ]
