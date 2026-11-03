@@ -20,6 +20,10 @@ const AULAS = [
       {
         nome: "Trabalho sobre o filme 'O jogo da Imitação'",
         arquivo: "trabalho-jogo-da-imitacao.pdf"
+      },
+      {
+        nome: "Quizes de Mentoria Tech",
+        arquivo: "respostas-quiz.docx"
       }
     ]
   },
