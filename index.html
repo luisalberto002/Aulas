@@ -4,39 +4,32 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
   <title>Arquivos da turma</title>
-
   <meta name="description" content="Acesse e baixe os materiais disponibilizados para a turma.">
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&display=swap"
     rel="stylesheet">
-
   <link rel="stylesheet" href="./style.css">
-
   <script src="./script.js" defer></script>
+  <meta name="color-scheme" content="light dark">
+  <script src="./tema.js"></script>
 </head>
 
 <body>
-  <main class="container">
+  <main class="container container-largo">
     <header class="cabecalho">
-      <div class="marca">MATERIAIS DIDÁTICOS</div>
-
+      <div class="topo">
+        <div class="marca">MATERIAIS DIDÁTICOS</div>
+        <div class="topo-acoes">
+          <button type="button" id="botao-tema" class="entrar">Tema escuro</button>
+          <a class="entrar" href="./admin.html">Área do professor</a>
+        </div>
+      </div>
       <h1 id="titulo">Arquivos da turma</h1>
-
       <p id="subtitulo">
         Baixe aqui os materiais de cada aula.
       </p>
-      <p>
-        Baixe aqui outros materiais: 
-      </p>
-      <ul class="outro">
-        <li><a href="https://drive.google.com/drive/folders/142awn0-bNqgCQpeeSyrAOQwHxeDmiPJF?usp=sharing" target="_blank">Unidade: Página Web do zero à primeira interação</a></li>
-        <li><a href="https://docs.google.com/spreadsheets/d/1lXCp4lhPc3sj6D-ejY6z4m4CVPL8q0i9/edit?usp=sharing&ouid=116057212897035555267&rtpof=true&sd=true" target="_blank">Unidade: Modelo Computacional simulação com planilhas</a></li>
-      </ul>
     </header>
 
     <div id="lista" aria-live="polite">

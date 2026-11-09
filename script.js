@@ -1,47 +1,50 @@
-
-/* ============ EDITE APENAS ESTA PARTE ============ */
+/* ============ CONFIGURAÇÃO ============ */
 
 const TITULO = "Arquivos da turma";
 const SUBTITULO = "Baixe aqui os materiais de cada aula.";
 
-const AULAS = [
-  {
-    titulo: "1º TDS",
-    data: "27/10/2026",
-    arquivos: [
-      {
-        nome: "Guia de Prompts da Persona ao Protótipo",
-        arquivo: "guia-prompts.docx"
-      },
-      {
-        nome: "Guia de Prompts Apresentação, Pitch e Entrega Final",
-        arquivo: "guia-final.docx" 
-      },
-      {
-        nome: "Trabalho sobre o filme 'O jogo da Imitação'",
-        arquivo: "trabalho-jogo-da-imitacao.pdf"
-      },
-      {
-        nome: "Quizes de Mentoria Tech",
-        arquivo: "respostas-quiz.docx"
-      }
-    ]
-  },
-  {
-    titulo: "Inteligência Artificial",
-    data: "27/10/2026",
-    arquivos: [
-      {
-        nome: "Trabalho sobre o filme 'AI - Inteligência Artificial'",
-        arquivo: "trabalho-ai-inteligencia-artificial.pdf"
-      }
-    ]
+const SUPABASE_URL = "https://fqfzgszhjricxbdzhihc.supabase.co";
+const SUPABASE_CHAVE = "sb_publishable_IIfD9h6uLTPaGS77NvPl9Q_X0QKPbCl";
+
+/* ============ FIM DA CONFIGURAÇÃO ============ */
+
+// Converte "2026-10-27" em "27/10/2026"
+function formatarData(texto) {
+  if (!texto) return "";
+  const [ano, mes, dia] = texto.split("-");
+  return dia + "/" + mes + "/" + ano;
+}
+
+async function carregarAulas() {
+  const endereco =
+    SUPABASE_URL +
+    "/rest/v1/aulas?select=titulo,data,arquivos(nome,descricao,caminho)" +
+    "&order=data.desc.nullslast,id.desc" +
+    "&arquivos.order=id.asc";
+
+  const resposta = await fetch(endereco, {
+    headers: { apikey: SUPABASE_CHAVE }
+  });
+
+  if (!resposta.ok) {
+    throw new Error("Erro ao carregar: " + resposta.status);
   }
-];
 
-/* ============ FIM DA PARTE EDITÁVEL ============ */
+  const dados = await resposta.json();
 
-document.addEventListener("DOMContentLoaded", function () {
+  // Traduz para o formato que o resto do código já entende
+  return dados.map(function (aula) {
+    return {
+      titulo: aula.titulo,
+      data: formatarData(aula.data),
+      arquivos: aula.arquivos.map(function (f) {
+        return { nome: f.nome, descricao: f.descricao, arquivo: f.caminho };
+      })
+    };
+  });
+}
+
+document.addEventListener("DOMContentLoaded", async function () {
   const elementoTitulo = document.getElementById("titulo");
   const elementoSubtitulo = document.getElementById("subtitulo");
   const lista = document.getElementById("lista");
@@ -70,7 +73,12 @@ document.addEventListener("DOMContentLoaded", function () {
     const link = document.createElement("a");
 
     link.className = "baixar";
-    link.href = new URL(arquivo.arquivo, pastaArquivos).href;
+    link.href =
+      SUPABASE_URL +
+      "/storage/v1/object/public/materiais/" +
+      encodeURIComponent(arquivo.arquivo) +
+      "?download=" +
+      encodeURIComponent(arquivo.arquivo);
     link.textContent = "Baixar";
     link.setAttribute("aria-label", "Baixar " + arquivo.nome);
 
@@ -82,6 +90,19 @@ document.addEventListener("DOMContentLoaded", function () {
     link.download = arquivo.arquivo;
 
     return link;
+  }
+
+  let AULAS = [];
+
+  try {
+    AULAS = await carregarAulas();
+  } catch (erro) {
+    console.error(erro);
+    mostrarMensagem(
+      "Não foi possível carregar os materiais. Tente novamente mais tarde.",
+      "erro"
+    );
+    return;
   }
 
   if (!Array.isArray(AULAS) || AULAS.length === 0) {

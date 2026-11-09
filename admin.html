@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex">
+    <title>Administração</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.93.0/dist/umd/supabase.js" defer></script>
+    <script src="./admin.js" defer></script>
+    <meta name="color-scheme" content="light dark">
+    <script src="./tema.js"></script>
+</head>
+
+<body>
+    <main class="container">
+        <header class="cabecalho">
+            <div class="topo">
+                <div class="marca">ÁREA DO PROFESSOR</div>
+                <div class="topo-acoes">
+                    <button type="button" id="botao-tema" class="entrar">Tema escuro</button>
+                    <a class="entrar" href="./index.html">Voltar ao site</a>
+                </div>
+            </div>
+            <h1>Administração</h1>
+        </header>
+
+        <section id="area-login" hidden>
+            <h2>Entrar</h2>
+            <form id="form-login">
+                <label>E-mail
+                    <input type="email" id="email" required autocomplete="username">
+                </label>
+                <label>Senha
+                    <input type="password" id="senha" required autocomplete="current-password">
+                </label>
+                <button type="submit" class="baixar">Entrar</button>
+                <p id="erro-login" class="erro" hidden></p>
+            </form>
+        </section>
+
+        <section id="area-aulas" hidden>
+            <h2>Aulas</h2>
+            <form id="form-aula">
+                <label>Título da aula
+                    <input type="text" id="aula-titulo" required maxlength="120">
+                </label>
+                <label>Data
+                    <input type="date" id="aula-data">
+                </label>
+                <button type="submit" class="baixar">Criar aula</button>
+                <p id="erro-aula" class="erro" hidden></p>
+            </form>
+            <ul id="lista-aulas"></ul>
+        </section>
+
+        <section id="area-arquivos" hidden>
+            <h2>Adicionar arquivo</h2>
+            <form id="form-arquivo">
+                <label>Aula
+                    <select id="arquivo-aula" required></select>
+                </label>
+                <label>Nome do material (como aparece para os alunos)
+                    <input type="text" id="arquivo-nome" required maxlength="160">
+                </label>
+                <label>Descrição (opcional)
+                    <input type="text" id="arquivo-descricao" maxlength="300">
+                </label>
+                <label>Arquivo
+                    <input type="file" id="arquivo-arquivo" required>
+                </label>
+                <button type="submit" class="baixar">Enviar arquivo</button>
+                <p id="msg-arquivo" hidden></p>
+            </form>
+        </section>
+
+        <section id="area-painel" hidden>
+            <h2>Você está conectado</h2>
+            <p id="quem"></p>
+            <button type="button" id="botao-sair" class="baixar">Sair</button>
+        </section>
+    </main>
+</body>
+
+</html>

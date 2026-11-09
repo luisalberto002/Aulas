@@ -1,77 +1,180 @@
-
+/* =========================================================
+   1. TEMAS: as cores ficam em variáveis; o escuro só troca valores
+   ========================================================= */
 :root {
-  --fundo: #f5f6fa;
+  color-scheme: light;
+  --fundo: #fafafa;
   --superficie: #ffffff;
-  --texto: #202536;
-  --texto-secundario: #72798b;
-  --destaque: #5b4bdb;
-  --destaque-hover: #4536bc;
-  --borda: #e8eaf1;
-  --raio: 18px;
+  --texto: #18181b;
+  --texto-secundario: #71717a;
+  --borda: #e4e4e7;
+  --destaque: #4f46e5;
+  --destaque-hover: #4338ca;
+  --sobre-destaque: #ffffff;
+  /* cor do texto sobre o destaque */
+  --foco: #a5b4fc;
+  --perigo: #b42318;
+  --raio: 14px;
 }
 
-* {
+/* Escuro automático: segue o aparelho, salvo se o usuário escolheu claro */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --fundo: #0f0f12;
+    --superficie: #17171b;
+    --texto: #f4f4f5;
+    --texto-secundario: #a1a1aa;
+    --borda: #2a2a31;
+    --destaque: #818cf8;
+    --destaque-hover: #a5b4fc;
+    --sobre-destaque: #0f0f12;
+    --foco: #6366f1;
+    --perigo: #f87171;
+  }
+}
+
+/* Escuro escolhido no botão */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --fundo: #0f0f12;
+  --superficie: #17171b;
+  --texto: #f4f4f5;
+  --texto-secundario: #a1a1aa;
+  --borda: #2a2a31;
+  --destaque: #818cf8;
+  --destaque-hover: #a5b4fc;
+  --sobre-destaque: #0f0f12;
+  --foco: #6366f1;
+  --perigo: #f87171;
+}
+
+/* =========================================================
+   2. BASE
+   ========================================================= */
+*,
+*::before,
+*::after {
   box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
 }
 
 body {
   margin: 0;
   background: var(--fundo);
   color: var(--texto);
-  font-family: "Bricolage Grotesque", sans-serif;
+  font-family: "Bricolage Grotesque", system-ui, sans-serif;
   line-height: 1.6;
+}
+
+body,
+section,
+li,
+input,
+select {
+  transition: background-color 0.25s ease, border-color 0.25s ease,
+    color 0.25s ease;
+}
+
+:focus-visible {
+  outline: 3px solid var(--foco);
+  outline-offset: 3px;
 }
 
 .container {
   width: min(900px, calc(100% - 32px));
   margin: 0 auto;
-  padding: 60px 0 24px;
+  padding: 48px 0 24px;
 }
 
-.cabecalho {
-  margin-bottom: 36px;
+.container-largo {
+  width: min(1180px, calc(100% - 32px));
+}
+
+/* =========================================================
+   3. TOPO E CABEÇALHO
+   ========================================================= */
+.topo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.topo-acoes {
+  display: flex;
+  gap: 8px;
 }
 
 .marca {
-  display: inline-block;
-  margin-bottom: 16px;
   color: var(--destaque);
   font-size: 12px;
   font-weight: 800;
   letter-spacing: 2px;
 }
 
+.entrar {
+  padding: 7px 14px;
+  border: 1px solid var(--borda);
+  border-radius: 10px;
+  background: var(--superficie);
+  color: var(--texto);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.4;
+  text-decoration: none;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s, background-color 0.25s;
+}
+
+.entrar:hover {
+  border-color: var(--destaque);
+  color: var(--destaque);
+}
+
+.cabecalho {
+  margin-bottom: 32px;
+}
+
 h1 {
   margin: 0;
-  font-size: clamp(32px, 6vw, 48px);
+  font-size: clamp(30px, 5vw, 44px);
   font-weight: 800;
   line-height: 1.15;
-  letter-spacing: -1.5px;
+  letter-spacing: -1.2px;
 }
 
 #subtitulo {
-  margin-top: 14px;
+  margin: 12px 0 0;
   color: var(--texto-secundario);
   font-size: 17px;
 }
 
+/* =========================================================
+   4. CARDS DE AULA E LISTA DE MATERIAIS
+   ========================================================= */
 section {
   margin-bottom: 24px;
-  padding: 26px;
+  padding: 24px;
   background: var(--superficie);
   border: 1px solid var(--borda);
   border-radius: var(--raio);
-  box-shadow: 0 8px 24px rgba(30, 35, 60, 0.035);
 }
 
 section h2 {
   margin: 0;
-  font-size: 23px;
+  font-size: 21px;
   font-weight: 800;
+  letter-spacing: -0.3px;
 }
 
 .data {
-  margin: 5px 0 20px;
+  margin: 4px 0 18px;
   color: var(--texto-secundario);
   font-size: 13px;
 }
@@ -79,7 +182,7 @@ section h2 {
 ul {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -89,8 +192,8 @@ li {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 20px;
-  padding: 17px;
+  gap: 16px;
+  padding: 14px 16px;
   border: 1px solid var(--borda);
   border-radius: 12px;
 }
@@ -102,7 +205,7 @@ li {
 }
 
 .desc {
-  margin-top: 5px;
+  margin-top: 4px;
   color: var(--texto-secundario);
   font-size: 13px;
 }
@@ -114,13 +217,16 @@ li {
   justify-content: center;
   min-height: 42px;
   padding: 9px 18px;
-  background: var(--destaque);
+  border: 0;
   border-radius: 10px;
-  color: #ffffff;
+  background: var(--destaque);
+  color: var(--sobre-destaque);
+  font: inherit;
   font-size: 14px;
   font-weight: 600;
   text-decoration: none;
-  transition: background 0.2s, transform 0.2s;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.2s;
 }
 
 .baixar:hover {
@@ -128,14 +234,15 @@ li {
   transform: translateY(-1px);
 }
 
-.baixar:focus-visible {
-  outline: 3px solid #a9a1ff;
-  outline-offset: 3px;
+.baixar:disabled {
+  opacity: 0.6;
+  cursor: wait;
 }
 
+/* Mensagens ("Carregando...", erros) */
 .vazio,
 .erro {
-  padding: 24px;
+  padding: 20px;
   background: var(--superficie);
   border: 1px solid var(--borda);
   border-radius: 12px;
@@ -144,19 +251,158 @@ li {
 }
 
 .erro {
-  color: #b42318;
+  color: var(--perigo);
 }
 
 footer {
-  margin-top: 42px;
+  margin-top: 40px;
   color: var(--texto-secundario);
   font-size: 12px;
   text-align: center;
 }
 
+/* =========================================================
+   5. SITE PÚBLICO: cards lado a lado
+   ========================================================= */
+#lista {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr));
+  gap: 24px;
+}
+
+#lista section {
+  margin-bottom: 0;
+}
+
+#lista>.vazio,
+#lista>.erro {
+  grid-column: 1 / -1;
+}
+
+#lista li {
+  flex-wrap: wrap;
+}
+
+#lista li>div:first-child {
+  flex: 1 1 0;
+  min-width: 150px;
+}
+
+#lista .baixar {
+  margin-left: auto;
+}
+
+/* =========================================================
+   6. FORMULÁRIOS
+   ========================================================= */
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+input,
+select {
+  padding: 11px 12px;
+  border: 1px solid var(--borda);
+  border-radius: 10px;
+  background: var(--superficie);
+  color: var(--texto);
+  font: inherit;
+}
+
+/* =========================================================
+   7. PAINEL DO PROFESSOR
+   ========================================================= */
+#form-aula {
+  margin-bottom: 24px;
+}
+
+.info-aula {
+  flex: 1;
+  min-width: 0;
+}
+
+.form-edicao {
+  width: 100%;
+}
+
+.form-edicao label {
+  margin-bottom: 12px;
+}
+
+.secao-edicao {
+  margin: 18px 0 10px;
+  color: var(--texto-secundario);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.botao-pequeno,
+.botao-secundario {
+  padding: 6px 12px;
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  background: var(--superficie);
+  color: var(--texto);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.botao-secundario {
+  min-height: 42px;
+  padding: 9px 18px;
+  border-radius: 10px;
+  font-size: 14px;
+}
+
+.botao-pequeno:hover,
+.botao-secundario:hover {
+  border-color: var(--destaque);
+  color: var(--destaque);
+}
+
+.botao-perigo {
+  margin: 0 0 12px;
+  padding: 7px 14px;
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  background: var(--superficie);
+  color: var(--perigo);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.botao-perigo:hover {
+  border-color: var(--perigo);
+  background: var(--perigo);
+  color: var(--sobre-destaque);
+}
+
+.botao-perigo:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+/* =========================================================
+   8. TELAS PEQUENAS
+   ========================================================= */
 @media (max-width: 560px) {
   .container {
-    padding-top: 36px;
+    padding-top: 32px;
   }
 
   section {
@@ -171,5 +417,9 @@ footer {
 
   .baixar {
     width: 100%;
+  }
+
+  #lista .baixar {
+    margin-left: 0;
   }
 }
